@@ -4,10 +4,10 @@
 
 services:
   catalogue:
-    # build:
-      # context: ./catalogue
-      # dockerfile: Dockerfile
-    # image: joindevops/catalogue:v1
+    build:
+      context: ./catalogue
+      dockerfile: Dockerfile
+    image: joindevops/catalogue:v1
     image: catalogue:v1
     container_name: catalogue
     depends_on:
