@@ -7,14 +7,15 @@ services:
     build:
       context: ./catalogue  # sess-56
       dockerfile: Dockerfile # sess-56
-    image: joindevops/catalogue:v1 # Ila vunte HUB loki kuda push avuthundi  sess-56  
+    # image: joindevops/catalogue:v1 # Ila vunte HUB loki kuda push avuthundi  sess-56  
     # image: catalogue:v1 # ila iste local numchi pull avuthundhi 
+    image: dockerfilelinux/catalogue:v1
     container_name: catalogue
     depends_on:
     - mongodb
   mongodb:
     build: ./mongodb
-    image: joindevops/mongodb:v1
+    image: dockerfilelinux/mongodb:v1
    
     container_name: mongodb
     volumes:
@@ -26,7 +27,7 @@ services:
     - redis:/data #   /data this is path to store the data if u want to check in HUB give -v
   mysql:
     build: ./mysql
-    image: joindevops/mysql:v1
+    image: dockerfilelinux/mysql:v1
     
     container_name: mysql
     volumes:
@@ -41,7 +42,7 @@ services:
       RABBITMQ_DEFAULT_PASS: roboshop123
   user:
     build: ./user
-    image: joindevops/user:v1
+    image: dockerfilelinux/user:v1
     
     container_name: user
     depends_on:
@@ -49,7 +50,7 @@ services:
     - redis
   cart:
     build: ./cart
-    image: joindevops/cart:v1
+    image: dockerfilelinux/cart:v1
    
     container_name: cart
     depends_on:
@@ -57,7 +58,7 @@ services:
     - catalogue
   shipping:
     build: ./shipping
-    image: joindevops/shipping:v1
+    image: dockerfilelinux/shipping:v1
     
     container_name: shipping
     depends_on:
@@ -65,7 +66,7 @@ services:
     - cart
   payment:
     build: ./payment
-    image: joindevops/payment:v1
+    image: dockerfilelinux/payment:v1
     
     container_name: payment
     depends_on:
@@ -74,7 +75,7 @@ services:
     - user
   frontend:
     build: ./frontend
-    image: joindevops/frontend:v1
+    image: dockerfilelinux/frontend:v1
     
     container_name: frontend
     ports:
