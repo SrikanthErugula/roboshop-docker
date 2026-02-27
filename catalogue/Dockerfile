@@ -4,8 +4,7 @@ WORKDIR /opt/server
 COPY package.json .
 COPY *.js .
 # this may add extra cache memory
-RUN npm install    
-
+RUN npm install
 # upto above  build-stage 
 
 
@@ -24,7 +23,7 @@ ENV MONGO="true" \
     MONGO_URL="mongodb://mongodb:27017/catalogue"
     
 # ikkada developer change cheste change avuthundhi so last rasam 
-COPY --from=build --chown=roboshop:roboshop /opt/server /opt/server 
+COPY --from=build --chown=roboshop:roboshop/opt/server /opt/server 
 
 
 # these will not work in build time so ekkada pettina okkate
