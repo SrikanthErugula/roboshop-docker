@@ -9,7 +9,7 @@ services:
       dockerfile: Dockerfile # sess-56
     # image: joindevops/catalogue:v1 # Ila vunte HUB loki kuda push avuthundi  sess-56  
     # image: catalogue:v1 # ila iste local numchi pull avuthundhi 
-    image: dockerfilelinux/catalogue:v1
+    # image: dockerfilelinux/catalogue:v1
     container_name: catalogue
     depends_on:
     - mongodb
