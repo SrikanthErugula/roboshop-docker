@@ -14,8 +14,12 @@ RUN apk add --no-cache \
 COPY requirements.txt .
 # Install into /install (just like you did)
 RUN pip3 install --prefix=/install -r requirements.txt
+#Installs the packages into the /install directory instead of the default system location.
+# -r means read package names from a file.
+# requirements.txt usually contains dependencies like:
 
 
+    
 # ===========================
 # Stage 2: Runtime (Alpine)
 # ===========================
