@@ -27,6 +27,7 @@ USER nginx
 CMD ["nginx", "-g", "daemon off;"]
 
 
+# sess-54
 
 # FROM nginx
 # RUN rm -rf /usr/share/nginx/html/index.html
@@ -34,3 +35,6 @@ CMD ["nginx", "-g", "daemon off;"]
 # RUN rm -rf /etc/nginx/conf.d/default.conf
 # COPY nginx.conf /etc/nginx/nginx.conf
 # COPY static /usr/share/nginx/html/
+
+
+# static lo vunna files comes form https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip ikkada download ayin files andhiloki copied 

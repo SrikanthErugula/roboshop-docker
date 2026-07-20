@@ -1,4 +1,4 @@
-#sess 55   belwo part is called as  build-stage 
+#sess 55   belwo part is called as  build-stage   --> build ane name lo we can give any name
 FROM node:20.19.5-alpine3.21 AS build
 WORKDIR /opt/server
 COPY package.json .
@@ -8,6 +8,8 @@ RUN npm install
 # upto above  build-stage 
 
 
+
+# the below code is final Image
 FROM node:20.19.5-alpine3.21
 # Create a group and user
 WORKDIR /opt/server
@@ -15,7 +17,7 @@ USER roboshop
 RUN addgroup -S roboshop && adduser -S roboshop -G roboshop && \
     chown -R roboshop:roboshop /opt/server
 EXPOSE 8080
-# this label content in maven style lo vundi
+# this label content in maven style lo vundi like .com ani ala
 LABEL com.project="roboshop" \
       component="catalogue" \
       created_by="sivakumar"

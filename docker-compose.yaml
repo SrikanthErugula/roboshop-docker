@@ -1,15 +1,16 @@
 
-#sess-55 
+#sess-55 and 56
 ######################
 
+# here we add the code for build the image ( context like ) instead of running one by one 
 services:
   catalogue:
     build:
-      context: ./catalogue  # sess-56
-      dockerfile: Dockerfile # sess-56
-    # image: joindevops/catalogue:v1 # Ila vunte HUB loki kuda push avuthundi  sess-56  
+      context: ./catalogue 
+      dockerfile: Dockerfile
+    # image: joindevops/catalogue:v1 # Ila vunte local numchi, HUB loki kuda push avuthundi while building time 
     # image: catalogue:v1 # ila iste local numchi pull avuthundhi 
-    # image: dockerfilelinux/catalogue:v1
+    image: dockerfilelinux/catalogue:v1
     container_name: catalogue
     depends_on:
     - mongodb
@@ -76,7 +77,7 @@ services:
   frontend:
     build: ./frontend
     image: dockerfilelinux/frontend:v1
-    
+
     container_name: frontend
     ports:
     - "80:80"
@@ -96,9 +97,90 @@ volumes:
   redis:
   mysql:
   rabbitmq:
+  #################
 
 
+# here the below code is user for run the image  only, not build the image 
+# sess-55
+services:
+# DB
+  mongodb:
+    image: mongodb:v1
+    container_name: mongodb
+    volumes:
+    - mongodb:/data/db  #   /data/db this is path to store the data if u want to check in HUB give -v
+  redis:
+    image: redis:7.0
+    container_name: redis
+    volumes:
+    - redis:/data #   /data this is path to store the data if u want to check in HUB give -v
+  mysql:
+    image: mysql:v1
+    container_name: mysql
+    volumes:
+    - mysql:/var/lib/mysql #  /var/lib/mysql  this is path to store the data if u want to check in HUB give -v
+  rabbitmq:
+    image: rabbitmq:3
+    container_name: rabbitmq
+    volumes: # -v rabbitmq:/var/lib/rabbitmq
+    - rabbitmq:/var/lib/rabbitmq  #  /var/lib/rabbitmq  this is path to store the data if u want to check in HUB give -v
+    environment:
+      RABBITMQ_DEFAULT_USER: roboshop
+      RABBITMQ_DEFAULT_PASS: roboshop123
 
+#backend
+  catalogue:
+    image: catalogue/v1
+    container_name: catalogue
+    depends_on: mongodb
+  user:
+    image: user:v1
+    container_name: user
+    depends_on:
+    - mongodb
+    - redis
+  cart:
+    image: cart:v1
+    container_name: cart
+    depends_on:
+    - redis
+    - catalogue
 
+  shipping:
+    image: shipping:v1
+    container_name: shipping
+    depends_on:
+    - mysql
+    - cart
+  payment:
+    image: payment:v1
+    container_name: payment
+    depends_on:
+    - rabbitmq
+    - cart
+    - user
 
-  #######################
+# frontend
+  frontend:
+    image: frontend:v1
+    container_name: frontend
+    ports:
+    - "80:80"
+    depends_on:
+    - catalogue
+    - user
+    - cart
+    - shipping
+    - payment
+
+networks:
+  default:
+    driver: bridge
+    name: roboshop
+    external: false # see notes
+
+volumes:
+  mongodb: # docker volume create mongodb. path is /var/lib/docker/volumes
+  redis:
+  mysql:
+  rabbitmq:

@@ -28,7 +28,7 @@ ENTRYPOINT ["sh", "-c", "sleep 30 && java -jar shipping.jar"]
 # EXPOSE 8080
 # WORKDIR /opt/server
 # COPY pom.xml .
-# COPY src ./src
+# COPY src ./src  #(./src means .(current folder), /src (src folder antha not only file)  overall means current folder lo src folder antha copy chei ani cheptinam)
 # RUN mvn clean package
 # RUN mv target/shipping-1.0.jar shipping.jar
 # ENV CART_ENDPOINT="cart:8080" \

@@ -52,6 +52,7 @@ CMD ["uwsgi", "--ini", "payment.ini"]
 
 
 
+#sess- 54
 
 # FROM python:3.9
 # EXPOSE 8080
